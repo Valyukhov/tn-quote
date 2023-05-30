@@ -627,6 +627,6 @@ const chapter = `\\id HEB unfoldingWord® Greek New Testament
 ἀσπάσασθε πάντας τοὺς ἡγουμένους ὑμῶν, καὶ πάντας τοὺς ἁγίους. ἀσπάζονται ὑμᾶς οἱ ἀπὸ τῆς Ἰταλίας.
 \\v 25
 ἡ χάρις μετὰ πάντων ὑμῶν.
-`
+`;
 
 export default chapter;

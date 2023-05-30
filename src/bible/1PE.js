@@ -222,6 +222,6 @@ const chapter = `\\id 1PE unfoldingWord® Greek New Testament
 ἀσπάζεται ὑμᾶς ἡ ἐν Βαβυλῶνι συνεκλεκτὴ, καὶ Μᾶρκος, ὁ υἱός μου.
 \\v 14
 ἀσπάσασθε ἀλλήλους ἐν φιλήματι ἀγάπης. εἰρήνη ὑμῖν πᾶσιν, τοῖς ἐν Χριστῷ.
-`
+`;
 
 export default chapter;

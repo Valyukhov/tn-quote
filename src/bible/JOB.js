@@ -2242,6 +2242,6 @@ const chapter = `\\id JOB unfoldingWord® Hebrew Bible
 \\f + \\ft Q \\+w וַיִּרְאֶ֗ה|lemma="רָאָה" strong="c:H7200" x-morph="He,C:Vqw3ms"\\+w*\\f* אֶת־ בָּנָי⁠ו֙ וְ⁠אֶת־ בְּנֵ֣י בָנָ֔י⁠ו אַרְבָּעָ֖ה דֹּרֽוֹת׃
 \\v 17
 וַ⁠יָּ֣מָת אִיּ֔וֹב זָקֵ֖ן וּ⁠שְׂבַ֥ע יָמִֽים׃
-`
+`;
 
 export default chapter;

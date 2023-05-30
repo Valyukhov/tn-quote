@@ -54,6 +54,6 @@ const chapter = `\\id OBA unfoldingWord® Hebrew Bible
 \\v 21
 וְ⁠עָל֤וּ מֽוֹשִׁעִים֙ בְּ⁠הַ֣ר צִיּ֔וֹן
  לִ⁠שְׁפֹּ֖ט אֶת־ הַ֣ר עֵשָׂ֑ו וְ⁠הָיְתָ֥ה לַֽ⁠יהוָ֖ה הַ⁠מְּלוּכָֽה׃
-`
+`;
 
 export default chapter;

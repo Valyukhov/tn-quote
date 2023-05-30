@@ -37,6 +37,6 @@ const chapter = `\\id 3JN unfoldingWord® Greek New Testament
 ἐλπίζω δὲ εὐθέως σε ἰδεῖν, καὶ στόμα πρὸς στόμα λαλήσομεν.
 \\v 15
 εἰρήνη σοι. ἀσπάζονταί σε οἱ φίλοι. ἀσπάζου τοὺς φίλους κατ’ ὄνομα.
-`
+`;
 
 export default chapter;

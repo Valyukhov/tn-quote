@@ -1,5 +1,5 @@
 {
-  "header": "# Changelog\n\nThis repository is part of the open components ecosystem.\n",
+  "header": "# Changelog\n\nLibrary for finding occurrences for notes and their translation\n\n_This repository is part of the open components ecosystem_\n",
 	"types": [
 		{"type": "feat", "section": "Features"},
 		{"type": "fix", "section": "Bug Fixes"},

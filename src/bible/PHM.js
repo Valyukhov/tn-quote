@@ -58,6 +58,6 @@ const chapter = `\\id PHM unfoldingWord® Greek New Testament
 Μᾶρκος, Ἀρίσταρχος, Δημᾶς, Λουκᾶς, οἱ συνεργοί μου.
 \\v 25
 ἡ χάρις τοῦ Κυρίου ἡμῶν, Ἰησοῦ Χριστοῦ, μετὰ τοῦ πνεύματος ὑμῶν. ἀμήν!
-`
+`;
 
 export default chapter;

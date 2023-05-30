@@ -103,6 +103,6 @@ const chapter = `\\id 2TH unfoldingWord® Greek New Testament
 ὁ ἀσπασμὸς τῇ ἐμῇ χειρὶ, Παύλου, ὅ ἐστιν σημεῖον ἐν πάσῃ ἐπιστολῇ, οὕτως γράφω.
 \\v 18
 ἡ χάρις τοῦ Κυρίου ἡμῶν, Ἰησοῦ Χριστοῦ, μετὰ πάντων ὑμῶν.
-`
+`;
 
 export default chapter;

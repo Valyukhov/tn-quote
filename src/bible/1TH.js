@@ -191,6 +191,6 @@ const chapter = `\\id 1TH unfoldingWord® Greek New Testament
 ἐνορκίζω ὑμᾶς τὸν Κύριον, ἀναγνωσθῆναι τὴν ἐπιστολὴν πᾶσιν τοῖς ἀδελφοῖς.
 \\v 28
 ἡ χάρις τοῦ Κυρίου ἡμῶν, Ἰησοῦ Χριστοῦ, μεθ’ ὑμῶν.
-`
+`;
 
 export default chapter;

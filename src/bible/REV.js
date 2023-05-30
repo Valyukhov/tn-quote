@@ -843,6 +843,6 @@ const chapter = `\\id REV unfoldingWord® Greek New Testament
 λέγει ὁ μαρτυρῶν ταῦτα, ναί, ἔρχομαι ταχύ. ἀμήν! ἔρχου, Κύριε Ἰησοῦ!
 \\v 21
 ἡ χάρις τοῦ Κυρίου Ἰησοῦ μετὰ τῶν ἁγίων. ἀμήν!
-`
+`;
 
 export default chapter;

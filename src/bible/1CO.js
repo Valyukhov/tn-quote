@@ -900,6 +900,6 @@ const chapter = `\\id 1CO unfoldingWord® Greek New Testament
 ἡ χάρις τοῦ Κυρίου Ἰησοῦ μεθ’ ὑμῶν.
 \\v 24
 ἡ ἀγάπη μου μετὰ πάντων ὑμῶν ἐν Χριστῷ Ἰησοῦ. ἀμήν!
-`
+`;
 
 export default chapter;

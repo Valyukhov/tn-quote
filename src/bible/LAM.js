@@ -340,6 +340,6 @@ const chapter = `\\id LAM unfoldingWord® Hebrew Bible
 \\f + \\ft Q \\+w וְֽנָשׁ֔וּבָה|lemma="שׁוּב" strong="c:H7725" x-morph="He,C:Vqh1cp"\\+w*\\f* חַדֵּ֥שׁ יָמֵ֖י⁠נוּ כְּ⁠קֶֽדֶם׃
 \\v 22
 כִּ֚י אִם־ מָאֹ֣ס מְאַסְתָּ֔⁠נוּ קָצַ֥פְתָּ עָלֵ֖י⁠נוּ עַד־ מְאֹֽד׃
-`
+`;
 
 export default chapter;

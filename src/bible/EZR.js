@@ -659,6 +659,6 @@ const chapter = `\\id EZR unfoldingWord® Hebrew Bible
 \\v 44
 כָּל־ אֵ֕לֶּה נָשְׂא֖וּ
 \\f + \\ft K \\+w נשא⁠י|lemma="נָשָׂא" strong="H5375" x-morph="He,Vqp3ms:Sp1cs"\\+w*\\f* נָשִׁ֣ים נָכְרִיּ֑וֹת וְ⁠יֵ֣שׁ מֵ⁠הֶ֣ם נָשִׁ֔ים וַ⁠יָּשִׂ֖ימוּ בָּנִֽים׃פ
-`
+`;
 
 export default chapter;

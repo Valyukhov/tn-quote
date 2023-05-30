@@ -219,6 +219,6 @@ const chapter = `\\id PHP unfoldingWord® Greek New Testament
 ἀσπάζονται ὑμᾶς πάντες οἱ ἅγιοι, μάλιστα δὲ οἱ ἐκ τῆς Καίσαρος οἰκίας.
 \\v 23
 ἡ χάρις τοῦ Κυρίου Ἰησοῦ Χριστοῦ μετὰ τοῦ πνεύματος ὑμῶν. ἀμήν!
-`
+`;
 
 export default chapter;

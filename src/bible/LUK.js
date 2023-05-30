@@ -2338,6 +2338,6 @@ const chapter = `\\id LUK unfoldingWord® Greek New Testament
 καὶ αὐτοὶ προσκυνήσαντες αὐτὸν, ὑπέστρεψαν εἰς Ἰερουσαλὴμ μετὰ χαρᾶς μεγάλης.
 \\v 53
 καὶ ἦσαν διὰ παντὸς ἐν τῷ ἱερῷ εὐλογοῦντες τὸν Θεόν.
-`
+`;
 
 export default chapter;
