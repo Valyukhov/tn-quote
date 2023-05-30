@@ -10,7 +10,6 @@ function useOccurrence({ book, chapter, verses, quotes = [] }) {
       if (book) {
         const bookName = book.toUpperCase();
         const file = await require(`../../bible/${bookName}.js`);
-        console.log(file?.default ? file.default : file);
         setUsfm(usfmToJSON(file?.default ? file.default : file));
       }
     };
