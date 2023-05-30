@@ -1,0 +1,5 @@
+dist/
+node_modules/
+styleguide/
+el-x-koine_ugnt/
+.*
