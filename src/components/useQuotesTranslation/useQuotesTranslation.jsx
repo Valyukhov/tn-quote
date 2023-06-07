@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
 function useQuotesTranslation({ book, tnotes, usfm: { jsonChapter, link } }) {

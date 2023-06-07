@@ -1,5 +1,5 @@
 import React from 'react';
-import { log } from '../../utils';
+
 import PropTypes from 'prop-types';
 
 function useSelection({
@@ -10,7 +10,6 @@ function useSelection({
   chapter,
   verses,
 }) {
-  log('test');
   return <></>;
 }
 
@@ -22,6 +21,10 @@ useSelection.defaultProps = {
 };
 
 useSelection.propTypes = {
+  /** greekVerseObjects */
+  greekVerseObjects: PropTypes.object,
+  /** targetVerseObjects */
+  targetVerseObjects: PropTypes.object,
   /** greek quote */
   quote: PropTypes.string,
   /** occurrence */

@@ -32,7 +32,6 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
       const ref = tnotes[0]?.Reference;
       const [chapter] = ref.split(':');
       if (chapter) {
-        console.log({ ref, chapter });
         setChapter(chapter);
       }
     }
@@ -52,6 +51,35 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
     },
     [link]
   );
+
+  useEffect(() => {
+    const main = async () => {
+      if (!jsonChapter && link) {
+        const repoLink = formatLink(link);
+        const manifest = await getManifest(repoLink);
+
+        if (!manifest) {
+          return false;
+        }
+        const bookPath = manifest.projects.find((el) => el.identifier === book)?.path;
+        let url;
+        if (bookPath.slice(0, 2) === './') {
+          url = `${repoLink}/${bookPath.slice(2)}`;
+        } else {
+          url = `${repoLink}/${bookPath}`;
+        }
+        let _data;
+        try {
+          _data = await axios.get(url);
+        } catch (error) {
+          return false;
+        }
+        const _usfm = usfmToJSON(_data.data);
+        setTargetUsfm(_usfm);
+      }
+    };
+    main();
+  }, [link, book, !!jsonChapter]);
 
   useEffect(() => {
     const main = async () => {
@@ -107,7 +135,6 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
   }, [greekUsfm, chapter]);
 
   useEffect(() => {
-    console.log('110');
     if (Object.keys(greekUsfmChapter).length && Object.keys(targetUsfmChapter).length) {
       const extraTNotes = tnotes.map((_tnote) => {
         const tnote = { ..._tnote };

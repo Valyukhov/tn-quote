@@ -1,5 +1,5 @@
 import React from 'react';
-import { log } from '../../utils';
+
 import PropTypes from 'prop-types';
 
 function useOccurrence({ quotes, book, chapter, verses }) {
