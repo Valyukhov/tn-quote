@@ -1,18 +1,85 @@
 import { normalizeString } from './srrcl';
 
-export const tsvToJSON = (tsv) => {
-  return tsv
-    .split('\n')
-    .slice(1)
-    .map((el) => {
-      const line = el.split('\t');
-      return {
-        chapter: line[0].split(':')[0],
-        verse: line[0].split(':')[1],
-        occurrence: line[5],
-        quote: line[4],
-      };
-    });
+/**
+ * Метод для того чтобы получить правильную ссылку
+ * @param {string} link абсолютная или относительная ссылка на репозиторий или ветку или коммит
+ *
+ * @example
+ * formatLink('https://git.door43.org/unfoldingWord/en_ult/');
+ * // returns https://git.door43.org/unfoldingWord/en_ult/src/branch/master
+ * formatLink('unfoldingWord/en_ult');
+ * // returns https://git.door43.org/unfoldingWord/en_ult/src/branch/master
+ * formatLink('unfoldingWord/en_ult/src/commit/ac345f982fcab3/');
+ * // returns https://git.door43.org/unfoldingWord/en_ult/src/commit/ac345f982fcab3
+ *
+ * @returns {string}
+ */
+export function formatLink(link) {
+  let url;
+  try {
+    url = new URL(link, 'https://git.door43.org/');
+  } catch (error) {
+    return 'https://git.door43.org/unfoldingWord/en_ult/src/branch/master';
+  }
+  url.host = 'git.door43.org';
+  let path = url.pathname;
+  path = path.slice(1);
+  if (path[path.length - 1] === '/') {
+    path = path.slice(0, -1);
+  }
+  const pathEl = path.split('/');
+  if (pathEl.length === 2) {
+    pathEl.push('raw', 'branch', 'master');
+  }
+  if (pathEl[2] === 'src') {
+    pathEl[2] = 'raw';
+  }
+  url.pathname = '/' + pathEl.join('/');
+  return url.href;
+}
+
+/**
+ *
+ * @param {string} tsv tsv file content
+ * @param {[string]} headers array of columns
+ * @param {boolean} splitReference whether it is necessary to break the `Reference` into a `chapter` and a `verse`
+ * @returns {[array]}
+ */
+export const tsvToJSON = (tsv, headers, splitReference = false) => {
+  tsv = tsv.split('\n');
+  const currentHeaders = tsv[0].split('\t');
+  tsv = tsv.slice(1);
+  const notes = [];
+  for (let i = 0; i < tsv.length; i++) {
+    const el = tsv[i];
+    const line = el.split('\t');
+    if (line.length !== currentHeaders.length) {
+      continue;
+    }
+    const note = {};
+    for (let index = 0; index < currentHeaders.length; index++) {
+      if (headers.includes(currentHeaders[index])) {
+        note[currentHeaders[index]] = line[index];
+        if (splitReference && currentHeaders[index].toLowerCase() === 'reference') {
+          const [chapter, verse] = line[index].split(':');
+          if (chapter && verse) {
+            note.chapter = chapter;
+            if (verse.indexOf('-') > 0) {
+              note.verse = [];
+              const [min, max] = verse.split('-');
+              for (let r = parseInt(min); r <= parseInt(max); r++) {
+                note.verse.push(r);
+              }
+            } else {
+              note.verse = [verse];
+            }
+          }
+        }
+      }
+    }
+    notes.push(note);
+  }
+  return notes;
 };
 
 export const formatToString = (res) => {

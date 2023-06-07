@@ -12,6 +12,10 @@ let sections = [
     components: ['src/components/useSelection/useSelection.jsx'],
   },
   {
+    name: 'useQuotesTranslation',
+    components: ['src/components/useQuotesTranslation/useQuotesTranslation.jsx'],
+  },
+  {
     name: 'useOccurrence',
     components: ['src/components/useOccurrence/useOccurrence.jsx'],
   },

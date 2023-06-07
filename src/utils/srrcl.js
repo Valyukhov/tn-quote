@@ -15,7 +15,7 @@ export const selectionsFromQuoteAndVerseObjects = ({
   chapter = 100,
   verses = [100],
 }) => {
-  if (occurrence === 0) {
+  if (occurrence === undefined || occurrence === 0) {
     return [];
   }
   let selections = [];

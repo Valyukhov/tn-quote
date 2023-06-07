@@ -24,7 +24,7 @@ function Component() {
       const { data: tnRaw } = await axios.get(
         'https://git.door43.org/ru_gl/ru_tn/raw/branch/master/tn_1TI.tsv'
       );
-      const tn = tsvToJSON(tnRaw);
+      const tn = tsvToJSON(tnRaw, ['Reference', 'Occurrence', 'Quote', 'Note'], true);
       setTn(tn);
       const { data: targetRaw } = await axios.get(
         'https://git.door43.org/ru_gl/ru_rlob/raw/branch/master/55-1TI.usfm'
@@ -41,8 +41,8 @@ function Component() {
     data = useSelection({
       greekVerseObjects: greek[selectedTn.chapter][selectedTn.verse].verseObjects,
       targetVerseObjects: target[selectedTn.chapter][selectedTn.verse].verseObjects,
-      quote: selectedTn.quote,
-      occurrence: selectedTn.occurrence,
+      quote: selectedTn.Quote,
+      occurrence: selectedTn.Occurrence,
       chapter: 1,
       verses: [3],
     });
@@ -50,7 +50,7 @@ function Component() {
   return (
     <>
       {selectedTn
-        ? selectedTn.chapter + ':' + selectedTn.verse + ' ' + selectedTn.quote
+        ? selectedTn.chapter + ':' + selectedTn.verse + ' ' + selectedTn.Quote
         : ''}{' '}
       - {data}
     </>
@@ -84,7 +84,7 @@ function Component() {
       const { data: tnRaw } = await axios.get(
         'https://git.door43.org/ru_gl/ru_tn/raw/branch/master/tn_EZR.tsv'
       );
-      const tn = tsvToJSON(tnRaw);
+      const tn = tsvToJSON(tnRaw, ['Reference', 'Occurrence', 'Quote', 'Note'], true);
       setTn(tn);
       const { data: targetRaw } = await axios.get(
         'https://git.door43.org/ru_gl/ru_rlob/raw/branch/master/15-EZR.usfm'
@@ -101,8 +101,8 @@ function Component() {
     data = useSelection({
       greekVerseObjects: greek[selectedTn.chapter][selectedTn.verse].verseObjects,
       targetVerseObjects: target[selectedTn.chapter][selectedTn.verse].verseObjects,
-      quote: selectedTn.quote,
-      occurrence: selectedTn.occurrence,
+      quote: selectedTn.Quote,
+      occurrence: selectedTn.Occurrence,
       chapter: 1,
       verses: [8],
     });
@@ -110,7 +110,7 @@ function Component() {
   return (
     <>
       {selectedTn
-        ? selectedTn.chapter + ':' + selectedTn.verse + ' ' + selectedTn.quote
+        ? selectedTn.chapter + ':' + selectedTn.verse + ' ' + selectedTn.Quote
         : ''}{' '}
       - {data}
     </>

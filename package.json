@@ -1,7 +1,7 @@
 {
   "name": "@texttree/tn-quote",
   "author": "TextTree.org",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Library for finding occurrences for notes and their translation",
   "keywords": [
     "rcl",
@@ -38,7 +38,7 @@
     "lint": "eslint --fix .",
     "precommit": "lint-staged",
     "prepare": "husky install",
-    "prepublishOnly": "shx rm -rf ./dist && babel ./src --out-dir ./dist -s inline --ignore ./src/**/*.jsx --ignore ./src/bible/*.usfm && shx cp -R ./src/bible ./dist",
+    "prepublishOnly": "shx rm -rf ./dist && babel ./src --out-dir ./dist -s inline --ignore ./src/**/*.jsx && shx cp -R ./src/bible ./dist",
     "prettier": "prettier --write .",
     "release": "standard-version",
     "release:first": "standard-version --first-release",
@@ -65,7 +65,7 @@
     "@material-ui/core": "^4.12.4",
     "axios": "^1.4.0",
     "babel-loader": "^9.1.2",
-    "eslint": "^8.41.0",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
@@ -73,16 +73,17 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-styleguidist": "^13.0.0",
+    "react-styleguidist": "13.0.0",
     "shx": "^0.3.4",
     "standard-version": "^9.5.0",
-    "webpack": "^5.75.0"
+    "webpack": "^5.85.1"
   },
   "dependencies": {
+    "js-yaml": "^4.1.0",
     "string-punctuation-tokenizer": "^2.2.0",
     "usfm-js": "^3.4.2",
     "xregexp": "^5.1.1"

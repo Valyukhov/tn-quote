@@ -27,11 +27,11 @@ function useOccurrence({ book, chapter, verses, quotes = [] }) {
         setVerseObjects(usfm?.chapters?.[chapter]?.[verses[0]]?.verseObjects ?? []);
       }
     }
-  }, [usfm, verses, chapter]);
+  }, [usfm?.headers?.[0]?.content, verses.toString(), chapter]);
   const selections = selectionsFromQuoteAndVerseObjects({
     verseObjects,
-    quote: quotes[0].quote,
-    occurrence: quotes[0].occurrence,
+    quote: quotes?.[0]?.quote,
+    occurrence: quotes?.[0]?.occurrence,
     chapter,
     verses,
   });
