@@ -8,16 +8,16 @@ let sections = [
     content: 'README.md',
   },
   {
+    name: 'useOccurrence',
+    components: ['src/components/useOccurrence/useOccurrence.jsx'],
+  },
+  {
     name: 'useSelection',
     components: ['src/components/useSelection/useSelection.jsx'],
   },
   {
     name: 'useQuotesTranslation',
     components: ['src/components/useQuotesTranslation/useQuotesTranslation.jsx'],
-  },
-  {
-    name: 'useOccurrence',
-    components: ['src/components/useOccurrence/useOccurrence.jsx'],
   },
 ];
 

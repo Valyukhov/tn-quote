@@ -39,7 +39,7 @@ function Component() {
         Occurrence: 1,
       },
     ],
-    usfm: { link: 'ru_gl/ru_rlob' },
+    usfm: { link: 'unfildingWord/en_ust' },
   });
   useEffect(() => {
     setData(JSON.stringify(extraTNotes, null, 2));
@@ -105,7 +105,16 @@ function Component() {
       <br />
       <button onClick={getData}>GET</button>
       <hr />
-      <pre style={{ border: '1px solid #777', background: '#eee' }}>{data}</pre>
+      <pre
+        style={{
+          border: '1px solid #777',
+          background: '#eee',
+          whiteSpace: 'pre-wrap',
+          padding: '6px',
+        }}
+      >
+        {data}
+      </pre>
     </>
   );
 }
