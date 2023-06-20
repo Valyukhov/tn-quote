@@ -39,7 +39,7 @@ function Component() {
         Occurrence: 1,
       },
     ],
-    usfm: { link: 'unfildingWord/en_ust' },
+    usfm: { link: 'unfoldingWord/en_ust' },
   });
   useEffect(() => {
     setData(JSON.stringify(extraTNotes, null, 2));

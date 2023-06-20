@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import jsyaml from 'js-yaml';
 import { formatLink, formatToString, parseVerseObjects } from '../../utils/selections';
+import { bookUrl } from '../../utils/constants';
 
 /**
  * нам надо вернуть переводы всех цитат из ноутсов
@@ -119,9 +120,13 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
   useEffect(() => {
     const main = async () => {
       if (book) {
-        const bookName = book.toUpperCase();
-        const file = await require(`../../bible/${bookName}.js`);
-        setGreekUsfm(usfmToJSON(file?.default ? file.default : file));
+        let file;
+        try {
+          file = await axios.get('https://git.door43.org/' + bookUrl[book]);
+        } catch (error) {
+          return false;
+        }
+        setGreekUsfm(usfmToJSON(file.data));
       }
     };
     main();

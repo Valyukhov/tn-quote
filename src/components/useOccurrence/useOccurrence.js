@@ -1,6 +1,11 @@
-import { usfmToJSON } from 'usfm-js/lib/js/usfmToJson';
-import { selectionsFromQuoteAndVerseObjects } from '../../utils/srrcl';
 import { useEffect, useState } from 'react';
+
+import axios from 'axios';
+
+import { usfmToJSON } from 'usfm-js/lib/js/usfmToJson';
+
+import { selectionsFromQuoteAndVerseObjects } from '../../utils/srrcl';
+import { bookUrl } from '../../utils/constants';
 
 function useOccurrence({ book, chapter, verses, quotes = [] }) {
   const [usfm, setUsfm] = useState(false);
@@ -8,9 +13,13 @@ function useOccurrence({ book, chapter, verses, quotes = [] }) {
   useEffect(() => {
     const main = async () => {
       if (book) {
-        const bookName = book.toUpperCase();
-        const file = await require(`../../bible/${bookName}.js`);
-        setUsfm(usfmToJSON(file?.default ? file.default : file));
+        let file;
+        try {
+          file = await axios.get('https://git.door43.org/' + bookUrl[book]);
+        } catch (error) {
+          return false;
+        }
+        setUsfm(usfmToJSON(file.data));
       }
     };
     main();
