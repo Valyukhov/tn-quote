@@ -14,8 +14,8 @@ function useSelection({
 }
 
 useSelection.defaultProps = {
-  greekVerseObjects: {},
-  targetVerseObjects: {},
+  greekVerseObjects: [],
+  targetVerseObjects: [],
   quote: '',
   occurrence: 0,
 };
@@ -29,6 +29,10 @@ useSelection.propTypes = {
   quote: PropTypes.string,
   /** occurrence */
   occurrence: PropTypes.number,
+  /** chapter */
+  chapter: PropTypes.number,
+  /** verses */
+  verses: PropTypes.array,
 };
 
 export default useSelection;

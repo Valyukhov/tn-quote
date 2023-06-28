@@ -2,12 +2,12 @@ import { selectionsFromQuoteAndVerseObjects } from '../../utils/srrcl';
 import { formatToString, parseVerseObjects } from '../../utils/selections';
 
 function useSelection({
+  chapter,
+  verses,
   greekVerseObjects = [],
   targetVerseObjects = [],
   quote = '',
   occurrence = 0,
-  chapter,
-  verses,
 }) {
   if (
     occurrence === 0 ||
@@ -18,6 +18,7 @@ function useSelection({
   ) {
     return;
   }
+
   const selections = selectionsFromQuoteAndVerseObjects({
     quote,
     verseObjects: greekVerseObjects,
@@ -25,9 +26,11 @@ function useSelection({
     chapter,
     verses,
   });
+
   const result = targetVerseObjects.map((el) =>
     parseVerseObjects(el, selections, { chapter, verse: verses[0] })
   );
+
   return formatToString(result);
 }
 

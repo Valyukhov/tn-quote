@@ -2,13 +2,14 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-function useOccurrence({ quotes, book, chapter, verses }) {
+function useOccurrence({ quotes, book, chapter, verses, domain }) {
   return <></>;
 }
 
 useOccurrence.defaultProps = {
   verses: [],
   quotes: [],
+  domain: 'https://git.door43.org',
 };
 
 useOccurrence.propTypes = {
@@ -20,6 +21,8 @@ useOccurrence.propTypes = {
   chapter: PropTypes.number,
   /** verses */
   verses: PropTypes.array,
+  /** domain */
+  domain: PropTypes.string,
 };
 
 export default useOccurrence;

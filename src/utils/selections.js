@@ -1,8 +1,9 @@
-import { normalizeString } from './srrcl';
+import { normalizeString, selectionsFromQuoteAndVerseObjects } from './srrcl';
 
 /**
  * Метод для того чтобы получить правильную ссылку
  * @param {string} link абсолютная или относительная ссылка на репозиторий или ветку или коммит
+ * @param {string} domain домен для запросов, по умолчанию https://git.door43.org
  *
  * @example
  * formatLink('https://git.door43.org/unfoldingWord/en_ult/');
@@ -14,14 +15,13 @@ import { normalizeString } from './srrcl';
  *
  * @returns {string}
  */
-export function formatLink(link) {
+export function formatLink(link, domain = 'https://git.door43.org') {
   let url;
   try {
-    url = new URL(link, 'https://git.door43.org/');
+    url = new URL(link, domain + '/');
   } catch (error) {
     return 'https://git.door43.org/unfoldingWord/en_ult/src/branch/master';
   }
-  url.host = 'git.door43.org';
   let path = url.pathname;
   path = path.slice(1);
   if (path[path.length - 1] === '/') {
@@ -239,4 +239,54 @@ export const selectionFromWord = (word) => {
   };
   const selection = JSON.stringify(selectionObject);
   return selection;
+};
+
+export const getExtraTNotes = (
+  tnotes = [],
+  greekUsfmChapter = {},
+  targetUsfmChapter = {}
+) => {
+  if (
+    Object.keys(greekUsfmChapter).length === 0 ||
+    Object.keys(targetUsfmChapter).length === 0 ||
+    tnotes.length === 0
+  ) {
+    return false;
+  }
+
+  return tnotes.map((_tnote) => {
+    const tnote = { ..._tnote };
+    let greekVerseObjects, targetVerseObjects;
+    if (tnote.verse.length === 1) {
+      greekVerseObjects = greekUsfmChapter?.[parseInt(tnote.verse[0])]?.verseObjects;
+      targetVerseObjects = [targetUsfmChapter?.[parseInt(tnote.verse[0])]?.verseObjects];
+    } else {
+      greekVerseObjects = tnote.verse.map(
+        (verse) => greekUsfmChapter?.[verse]?.verseObjects
+      );
+      targetVerseObjects = tnote.verse.map(
+        (verse) => targetUsfmChapter?.[verse]?.verseObjects
+      );
+    }
+    const selections = selectionsFromQuoteAndVerseObjects({
+      quote: tnote.Quote,
+      verseObjects: greekVerseObjects,
+      occurrence: tnote.Occurrence,
+      chapter: tnote.chapter,
+      verses: tnote.verse,
+    });
+    const result = tnote.verse
+      .map((verse, index) => {
+        return targetVerseObjects[index].map((vo) =>
+          parseVerseObjects(vo, selections, {
+            chapter: tnote.chapter,
+            verse,
+          })
+        );
+      })
+      .reduce((acc, cur) => [...acc, ...cur], []);
+    tnote.origQuote = tnote.Quote;
+    tnote.Quote = formatToString(result);
+    return tnote;
+  });
 };

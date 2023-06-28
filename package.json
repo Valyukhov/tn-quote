@@ -49,11 +49,7 @@
   "oldScripts": {
     "prepublishOnly": "shx rm -rf ./dist && babel ./src --out-dir ./dist -s inline --ignore ./src/**/*.jsx && shx cp -R ./src/bible ./dist"
   },
-  "peerDependencies": {
-    "prop-types": "^15.x",
-    "react": "^17.x || ^18.x",
-    "react-dom": "^17.x || ^18.x"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.22.5",
     "@babel/core": "^7.22.5",

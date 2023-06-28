@@ -1,9 +1,8 @@
 import { usfmToJSON } from 'usfm-js/lib/js/usfmToJson';
-import { selectionsFromQuoteAndVerseObjects } from '../../utils/srrcl';
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import jsyaml from 'js-yaml';
-import { formatLink, formatToString, parseVerseObjects } from '../../utils/selections';
+import { formatLink, getExtraTNotes } from '../../utils/selections';
 import { bookUrl } from '../../utils/constants';
 
 /**
@@ -19,11 +18,15 @@ import { bookUrl } from '../../utils/constants';
  * и после этого проходить по каждому элементу, получать перевод и сохранять
  */
 
-function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link } }) {
+function useQuotesTranslation({
+  book,
+  tnotes: _tnotes,
+  usfm: { jsonChapter, link },
+  domain = 'https://git.door43.org',
+}) {
   const [greekUsfm, setGreekUsfm] = useState(false);
   const [tnotes, setTnotes] = useState(() => _tnotes);
   const [chapter, setChapter] = useState(0);
-  const [targetUsfm, setTargetUsfm] = useState(false);
   const [targetUsfmChapter, setTargetUsfmChapter] = useState({});
   const [greekUsfmChapter, setGreekUsfmChapter] = useState({});
   const [extraTNotes, setExtraTNotes] = useState([]);
@@ -38,49 +41,17 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
     }
   }, [tnotes]);
 
-  const getManifest = useCallback(
-    async (repoLink) => {
-      let data;
-      try {
-        const res = await axios.get(repoLink + '/manifest.yaml');
-        data = res.data;
-      } catch (error) {
-        return false;
-      }
-      const manifest = jsyaml.load(data, { json: true });
-      return manifest;
-    },
-    [link]
-  );
-
-  useEffect(() => {
-    const main = async () => {
-      if (!jsonChapter && link) {
-        const repoLink = formatLink(link);
-        const manifest = await getManifest(repoLink);
-
-        if (!manifest) {
-          return false;
-        }
-        const bookPath = manifest.projects.find((el) => el.identifier === book)?.path;
-        let url;
-        if (bookPath.slice(0, 2) === './') {
-          url = `${repoLink}/${bookPath.slice(2)}`;
-        } else {
-          url = `${repoLink}/${bookPath}`;
-        }
-        let _data;
-        try {
-          _data = await axios.get(url);
-        } catch (error) {
-          return false;
-        }
-        const _usfm = usfmToJSON(_data.data);
-        setTargetUsfm(_usfm);
-      }
-    };
-    main();
-  }, [link, book, !!jsonChapter]);
+  const getManifest = useCallback(async (repoLink) => {
+    let data;
+    try {
+      const res = await axios.get(repoLink + '/manifest.yaml');
+      data = res.data;
+    } catch (error) {
+      return false;
+    }
+    const manifest = jsyaml.load(data, { json: true });
+    return manifest;
+  }, []);
 
   useEffect(() => {
     const main = async () => {
@@ -88,7 +59,7 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
         setTargetUsfmChapter(jsonChapter);
       } else {
         if (link && chapter) {
-          const repoLink = formatLink(link);
+          const repoLink = formatLink(link, domain);
           const manifest = await getManifest(repoLink);
 
           if (!manifest) {
@@ -96,20 +67,20 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
           }
           const bookPath = manifest.projects.find((el) => el.identifier === book)?.path;
           let url;
+
           if (bookPath.slice(0, 2) === './') {
             url = `${repoLink}/${bookPath.slice(2)}`;
           } else {
             url = `${repoLink}/${bookPath}`;
           }
           let _data;
+
           try {
             _data = await axios.get(url);
           } catch (error) {
             return false;
           }
-          const _usfm = usfmToJSON(_data.data);
-          setTargetUsfm(_usfm);
-          setTargetUsfmChapter(_usfm?.chapters?.[chapter] ?? []);
+          setTargetUsfmChapter(usfmToJSON(_data.data)?.chapters?.[chapter] ?? []);
         }
       }
     };
@@ -119,17 +90,17 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
   // кешируем юсфм
   useEffect(() => {
     const main = async () => {
-      if (book) {
-        let file;
-        try {
-          file = await axios.get('https://git.door43.org/' + bookUrl[book]);
-        } catch (error) {
-          return false;
-        }
-        setGreekUsfm(usfmToJSON(file.data));
+      let file;
+      try {
+        file = await axios.get(domain + '/' + bookUrl[book]);
+      } catch (error) {
+        return false;
       }
+      setGreekUsfm(usfmToJSON(file.data));
     };
-    main();
+    if (book) {
+      main();
+    }
   }, [book]);
 
   // кешируем главу (это не обязательно)
@@ -140,44 +111,9 @@ function useQuotesTranslation({ book, tnotes: _tnotes, usfm: { jsonChapter, link
   }, [greekUsfm, chapter]);
 
   useEffect(() => {
-    if (Object.keys(greekUsfmChapter).length && Object.keys(targetUsfmChapter).length) {
-      const extraTNotes = tnotes.map((_tnote) => {
-        const tnote = { ..._tnote };
-        let greekVerseObjects, targetVerseObjects;
-        if (tnote.verse.length === 1) {
-          greekVerseObjects = greekUsfmChapter?.[parseInt(tnote.verse[0])]?.verseObjects;
-          targetVerseObjects = [
-            targetUsfmChapter?.[parseInt(tnote.verse[0])]?.verseObjects,
-          ];
-        } else {
-          greekVerseObjects = tnote.verse.map(
-            (verse) => greekUsfmChapter?.[verse]?.verseObjects
-          );
-          targetVerseObjects = tnote.verse.map(
-            (verse) => targetUsfmChapter?.[verse]?.verseObjects
-          );
-        }
-        const selections = selectionsFromQuoteAndVerseObjects({
-          quote: tnote.Quote,
-          verseObjects: greekVerseObjects,
-          occurrence: tnote.Occurrence,
-          chapter: tnote.chapter,
-          verses: tnote.verse,
-        });
-        const result = tnote.verse
-          .map((verse, index) => {
-            return targetVerseObjects[index].map((vo) =>
-              parseVerseObjects(vo, selections, {
-                chapter: tnote.chapter,
-                verse,
-              })
-            );
-          })
-          .reduce((acc, cur) => [...acc, ...cur], []);
-        tnote.origQuote = tnote.Quote;
-        tnote.Quote = formatToString(result);
-        return tnote;
-      });
+    const extraTNotes = getExtraTNotes(tnotes, greekUsfmChapter, targetUsfmChapter);
+
+    if (extraTNotes) {
       setExtraTNotes(extraTNotes);
     }
   }, [greekUsfmChapter, targetUsfmChapter, tnotes]);

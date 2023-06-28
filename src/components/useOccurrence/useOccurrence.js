@@ -7,15 +7,22 @@ import { usfmToJSON } from 'usfm-js/lib/js/usfmToJson';
 import { selectionsFromQuoteAndVerseObjects } from '../../utils/srrcl';
 import { bookUrl } from '../../utils/constants';
 
-function useOccurrence({ book, chapter, verses, quotes = [] }) {
+function useOccurrence({
+  book,
+  chapter,
+  verses = [],
+  quotes = [],
+  domain = 'https://git.door43.org',
+}) {
   const [usfm, setUsfm] = useState(false);
   const [verseObjects, setVerseObjects] = useState([]);
+
   useEffect(() => {
     const main = async () => {
       if (book) {
         let file;
         try {
-          file = await axios.get('https://git.door43.org/' + bookUrl[book]);
+          file = await axios.get(domain + '/' + bookUrl[book]);
         } catch (error) {
           return false;
         }
@@ -23,7 +30,7 @@ function useOccurrence({ book, chapter, verses, quotes = [] }) {
       }
     };
     main();
-  }, [book]);
+  }, [book, domain]);
 
   useEffect(() => {
     if (usfm) {
@@ -37,6 +44,7 @@ function useOccurrence({ book, chapter, verses, quotes = [] }) {
       }
     }
   }, [usfm?.headers?.[0]?.content, verses.toString(), chapter]);
+
   const selections = selectionsFromQuoteAndVerseObjects({
     verseObjects,
     quote: quotes?.[0]?.quote,
@@ -44,6 +52,7 @@ function useOccurrence({ book, chapter, verses, quotes = [] }) {
     chapter,
     verses,
   });
+
   return selections;
 }
 
