@@ -1,7 +1,7 @@
 {
-  "name": "@texttree/tn-quote",
+  "name": "@texttree/tn-quote-helpers",
   "author": "TextTree.org",
-  "version": "0.5.0",
+  "version": "0.1.1",
   "description": "Library for finding occurrences for notes and their translation",
   "keywords": [
     "rcl",
@@ -12,14 +12,14 @@
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
-  "url": "https://github.com/texttree/tn-quote",
-  "homepage": "https://github.com/texttree/tn-quote#readme",
+  "url": "https://github.com/texttree/tn-quote-helpers",
+  "homepage": "https://github.com/texttree/tn-quote-helpers#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/texttree/tn-quote.git"
+    "url": "git+https://github.com/texttree/tn-quote-helpers.git"
   },
   "bugs": {
-    "url": "https://github.com/texttree/tn-quote/issues"
+    "url": "https://github.com/texttree/tn-quote-helpers/issues"
   },
   "publishConfig": {
     "access": "public"
@@ -72,7 +72,6 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-styleguidist": "13.1.1",
     "shx": "^0.3.4",
@@ -82,6 +81,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "js-yaml": "^4.1.0",
+    "react": "^18.3.1",
     "string-punctuation-tokenizer": "^2.2.0",
     "usfm-js": "^3.4.2",
     "xregexp": "^5.1.1"
